@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        tools:context=".MapsActivity" />
+
+
+    <GridLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="38dp"
+            android:id="@+id/menu"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_baseline_menu_24" />
+
+        <TextView
+            android:id="@+id/textPickUp"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_gravity="top"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="-45dp"
+            android:background="@drawable/background_white"
+            android:gravity="center"
+            android:text="Pick Up Location"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textDestination"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_destination"
+            android:drawableStart="@drawable/ic_baseline_search_30"
+            android:drawablePadding="25dp"
+            android:padding="4sp"
+            android:paddingVertical="9dp"
+            android:paddingStart="20dp"
+            android:text="Delivery destination ?"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </GridLayout>
+
+</RelativeLayout>
