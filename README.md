@@ -43,7 +43,7 @@ To get started with the Uber clone app, follow the instructions below:
 
 2. Grant location permission when prompted to allow the app to capture your location.
 
-3. Enter your destination into the auto-suggestion TextView.
+3. Enter your destination into the auto-suggestion EditText.
 
 4. The app will display the route and prices for the selected destination.
 
