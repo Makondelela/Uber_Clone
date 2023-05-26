@@ -2,7 +2,7 @@
 
 This is an Uber clone app that provides extra security by using email and password for sign-in, as opposed to Uber's phone number verification. 
 The app utilizes Firebase Realtime Database and Authentication for data storage and user management. 
-It automatically captures the user's location upon sign-in and allows them to choose their destination by entering it into an auto-suggestion TextView. 
+It automatically captures the user's location upon sign-in and allows them to choose their destination by entering it into an auto-suggestion EditText. 
 The app then displays the route and prices for the selected destination. Users can also choose their desired type of car and make payments using the PayFast API.
 
 ## Getting Started
