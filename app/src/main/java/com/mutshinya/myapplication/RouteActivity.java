@@ -140,7 +140,7 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
                 .appendQueryParameter("destination",destination)
                 .appendQueryParameter("origin",origin)
                 .appendQueryParameter("mode","driving")
-                .appendQueryParameter("key","AIzaSyA44QeS0bNpDRpJa-qS8XKlr6IiteUIsUA")
+                .appendQueryParameter("key","[Map_API_KEY]")
                 .toString();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
