@@ -33,7 +33,7 @@ To get started with the Uber clone app, follow the instructions below:
 
 5. Configure Google Maps API:
    - Obtain a Google Maps API key.
-   - Replace `[YourApiKey]` with your API key in the `RouteActivity` class (line 382), `PlaceAPI` class (Models package, line 25), and the `AndroidManifest.xml` file (line 41).
+   - Replace `[YourApiKey]` with your API key in the `RouteActivity` class (line 142 and 382), `PlaceAPI` class (Models package, line 25), and the `AndroidManifest.xml` file (line 41).
 
 6. Build and run the app on an Android device or emulator.
 
