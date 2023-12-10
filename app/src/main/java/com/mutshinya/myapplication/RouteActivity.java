@@ -5,10 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
@@ -33,6 +29,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -53,7 +50,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.ApiInterface;
-
 import Models.Result;
 import Requests.DRequests;
 import retrofit2.Call;
@@ -68,7 +64,7 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
     private ActivityRouteBinding binding;
     private TextView txtRoute;
     private CardView cardView;
-    private TextView txtuberGo,txtuber,txtuberX,txtcomfort,txtuberVan;
+    private TextView txtMiniBakkie,txtBakkie,txtMiniTruck,txtTruck,txtMegaTruck;
     private ApiInterface apiInterface;
 
     @Override
@@ -78,18 +74,20 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
 
         binding = ActivityRouteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
 
 
-        txtuberGo = findViewById(R.id.price1);
-        txtuber= findViewById(R.id.price2);
-        txtuberX = findViewById(R.id.price3);
-        txtcomfort = findViewById(R.id.price4);
-        txtuberVan = findViewById(R.id.price5);
+        txtMiniBakkie = findViewById(R.id.price1);
+        txtBakkie= findViewById(R.id.price2);
+        txtMiniTruck = findViewById(R.id.price3);
+        txtTruck = findViewById(R.id.price4);
+        txtMegaTruck = findViewById(R.id.price5);
+
+
+
 
         setTextViews();
         takePrice();
@@ -140,7 +138,7 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
                 .appendQueryParameter("destination",destination)
                 .appendQueryParameter("origin",origin)
                 .appendQueryParameter("mode","driving")
-                .appendQueryParameter("key","[Map_API_KEY]")
+                .appendQueryParameter("key","[API_KEY]")
                 .toString();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -309,59 +307,59 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
             priceMini = (int)Math.ceil(price_Mini);
 
         }
-        txtuberGo.setText("R"+Integer.toString(priceMini));
+        txtMiniBakkie.setText("R"+Integer.toString(priceMini));
 
 
-        //price for uber
-        int priceuber;
-        double price_uber = (pricev + distance*value)*1.15;
-        int b = (int) price_uber;
+        //price for Bakkie
+        int priceBakkie;
+        double price_Bakkie = (pricev + distance*value)*1.2;
+        int b = (int) price_Bakkie;
         //Price conversions
-        if(price_uber-b< 0.1) {
-            priceuber = b;
+        if(price_Bakkie-b< 0.1) {
+            priceBakkie = b;
         }else {
-            priceuber = (int)Math.ceil(price_uber);
+            priceBakkie = (int)Math.ceil(price_Bakkie);
         }
-        txtuber.setText("R"+Integer.toString(priceuber));
+        txtBakkie.setText("R"+Integer.toString(priceBakkie));
 
-        //price for uber
-        int priceuberX;
-        double price_uberX = (pricev + distance*value)*1.2;
-        int c = (int) price_uberX;
+        //price for Bakkie
+        int priceMiniTruck;
+        double price_MiniTruck = (pricev + distance*value)*1.4;
+        int c = (int) price_MiniTruck;
         //Price conversions
-        if(price_uberX-c< 0.1) {
-            priceuberX = c;
+        if(price_MiniTruck-c< 0.1) {
+            priceMiniTruck = c;
         }else {
-            priceuberX = (int)Math.ceil(price_uberX);
+            priceMiniTruck = (int)Math.ceil(price_MiniTruck);
         }
-        txtuberX.setText("R"+Integer.toString(priceuberX));
+        txtMiniTruck.setText("R"+Integer.toString(priceMiniTruck));
 
 
-        //price for uber
-        int pricecomfort;
-        double price_comfort = (pricev + distance*value)*1.4;
-        int d = (int) price_comfort;
+        //price for Bakkie
+        int priceTruck;
+        double price_Truck = (pricev + distance*value)*1.8;
+        int d = (int) price_Truck;
         //Price conversions
-        if(price_comfort-d< 0.1) {
-            pricecomfort = d;
+        if(price_Truck-d< 0.1) {
+            priceTruck = d;
         }else {
-            pricecomfort = (int)Math.ceil(price_comfort);
+            priceTruck = (int)Math.ceil(price_Truck);
         }
-        txtcomfort.setText("R"+Integer.toString(pricecomfort));
+        txtTruck.setText("R"+Integer.toString(priceTruck));
 
 
 
-        //price for uber
-        int priceuberVan;
-        double price_uberVan = (pricev + distance*value)*2.0;
-        int e = (int) price_uberVan;
+        //price for Bakkie
+        int priceMegaTruck;
+        double price_MegaTruck = (pricev + distance*value)*2.6;
+        int e = (int) price_MegaTruck;
         //Price conversions
-        if(price_uberVan-e< 0.1) {
-            priceuberVan = e;
+        if(price_MegaTruck-e< 0.1) {
+            priceMegaTruck = e;
         }else {
-            priceuberVan = (int)Math.ceil(price_uberVan);
+            priceMegaTruck = (int)Math.ceil(price_MegaTruck);
         }
-        txtuberVan.setText("R"+Integer.toString(priceuberVan));
+        txtMegaTruck.setText("R"+Integer.toString(priceMegaTruck));
 
     }
 
@@ -379,7 +377,7 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
 
         ApiInterface service = retrofit.create(ApiInterface.class);
 
-        Call<Result> call = service.getDistance(origin, destination, "[YourApiKey]");
+        Call<Result> call = service.getDistance(origin, destination, "[API_KEY]");
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, retrofit2.Response<Result> response) {
@@ -451,61 +449,61 @@ public class RouteActivity extends AppCompatActivity implements OnMapReadyCallba
      */
     public void takePrice(){
 
-        txtuberGo.setOnClickListener(new View.OnClickListener() {
+        txtMiniBakkie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String price = txtuberGo.getText().toString();
+                String price = txtMiniBakkie.getText().toString();
                 Intent intent =new Intent(RouteActivity.this,PaymentActivity.class);
                 intent.putExtra("price",price);
                 startActivity(intent);
                 DRequests.addString(4,price);
-                DRequests.addString(5,"Mini uber");
+                DRequests.addString(5,"Mini Bakie");
             }
         });
 
-        txtuber.setOnClickListener(new View.OnClickListener() {
+        txtBakkie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String price = txtuber.getText().toString();
+                String price = txtBakkie.getText().toString();
                 Intent intent =new Intent(RouteActivity.this,PaymentActivity.class);
                 intent.putExtra("price",price);
                 startActivity(intent);
                 DRequests.addString(4,price);
-                DRequests.addString(5,"uber");
+                DRequests.addString(5,"Bakie");
             }
         });
 
 
-        txtuberX.setOnClickListener(new View.OnClickListener() {
+        txtMiniTruck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String price = txtuberX.getText().toString();
+                String price = txtMiniTruck.getText().toString();
                 Intent intent =new Intent(RouteActivity.this,PaymentActivity.class);
                 intent.putExtra("price",price);
                 startActivity(intent);
                 DRequests.addString(4,price);
-                DRequests.addString(5,"Mini comfort");
+                DRequests.addString(5,"Mini Truck");
             }
         });
 
-        txtcomfort.setOnClickListener(v -> {
-            String price = txtcomfort.getText().toString();
+        txtTruck.setOnClickListener(v -> {
+            String price = txtTruck.getText().toString();
             Intent intent =new Intent(RouteActivity.this,PaymentActivity.class);
             intent.putExtra("price",price);
             startActivity(intent);
             DRequests.addString(4,price);
-            DRequests.addString(5,"comfort");
+            DRequests.addString(5,"Truck");
         });
 
-        txtuberVan.setOnClickListener(new View.OnClickListener() {
+        txtMegaTruck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String price = txtuberVan.getText().toString();
+                String price = txtMegaTruck.getText().toString();
                 Intent intent =new Intent(RouteActivity.this,PaymentActivity.class);
                 intent.putExtra("price",price);
                 startActivity(intent);
                 DRequests.addString(4,price);
-                DRequests.addString(5,"Mega comfort");
+                DRequests.addString(5,"Mega Truck");
             }
         });
 
