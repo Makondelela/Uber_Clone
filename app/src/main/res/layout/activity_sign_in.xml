@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="welcome Back"
+        android:text="Welcome Back"
         android:textColor="@color/primary_text"
         android:textSize="25sp"
         android:textStyle="bold"/>
@@ -84,6 +84,41 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:cornerRadius="8dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:id="@+id/cardV2"
+        android:layout_marginTop="-85dp"
+        android:layout_height="120dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="12dp"
+        app:cardMaxElevation="12dp"
+        android:visibility="gone"
+        app:cardPreventCornerOverlap="true"
+
+        app:cardUseCompatPadding="true">
+
+        <ProgressBar
+            android:id="@+id/loading_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="55dp"
+            />
+
+        <TextView
+            android:id="@+id/loading_text"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loading_indicator"
+            android:layout_centerHorizontal="true"
+            android:text="Signing In ..."
+            android:layout_marginLeft="45dp"
+            />
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="300dp"
