@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -28,30 +29,29 @@ import Requests.DRequests;
 public class PaymentActivity extends AppCompatActivity {
 
     private WebView webView;
-    private ProgressBar loader;
 
-    private static final String MERCHANT_ID = "YourMerchantID";
-    private static final String MERCHANT_KEY = "YourMerchantKey";
+
+    private static final String MERCHANT_ID = "22007340";
+    private static final String MERCHANT_KEY = "66oguex8vijwx";
     private static final String SALT_PASSPHRASE = "";
 
     private static final String NAME_FIRST = "First Name";
+
+    private CardView progressCardView;
+
     private static final String NAME_LAST  = "Last Name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        loader = findViewById(R.id.loader);
-
-
-
-
-
+        progressCardView = findViewById(R.id.cardV2);
         webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                progressCardView.setVisibility(View.GONE);
                 if (url.startsWith("https://www.payfast.co.za/onsite/return")) {
                     // Handle payment success
                     return true;
