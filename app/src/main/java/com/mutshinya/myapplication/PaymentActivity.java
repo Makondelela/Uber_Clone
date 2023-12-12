@@ -31,8 +31,8 @@ public class PaymentActivity extends AppCompatActivity {
     private WebView webView;
 
 
-    private static final String MERCHANT_ID = "22007340";
-    private static final String MERCHANT_KEY = "66oguex8vijwx";
+    private static final String MERCHANT_ID = "[your_ID]";
+    private static final String MERCHANT_KEY = "[merchant_key]";
     private static final String SALT_PASSPHRASE = "";
 
     private static final String NAME_FIRST = "First Name";
