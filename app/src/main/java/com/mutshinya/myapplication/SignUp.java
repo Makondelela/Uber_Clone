@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -40,6 +42,7 @@ public class SignUp extends AppCompatActivity {
     public DatabaseReference myRef;
     private EditText pass,confPass;
     private FirebaseAuth mAuth;
+    private CardView progressCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class SignUp extends AppCompatActivity {
         confPass = findViewById(R.id.confirmPass);
         Button register1 = findViewById(R.id.register1);
         TextView signIn = findViewById(R.id.signIn);
+        progressCardView = findViewById(R.id.cardV2);
+        progressCardView.setVisibility(View.GONE);
 
         signIn.setOnClickListener(view -> {
             Intent intent = new Intent(SignUp.this,SignIn.class);
@@ -65,7 +70,7 @@ public class SignUp extends AppCompatActivity {
         register1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                progressCardView.setVisibility(View.VISIBLE);
                 firstName = name.getText().toString().trim();
                 lastName = surname.getText().toString().trim();
                 userName = username.getText().toString().trim();
@@ -76,12 +81,16 @@ public class SignUp extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || firstName.isEmpty() || lastName.isEmpty()
                         || userName.isEmpty()) {
+                    progressCardView.setVisibility(View.GONE);
                     Toast.makeText(SignUp.this, "Empty credentials", Toast.LENGTH_SHORT).show();
                 } else if (password.length() < 6) {
+                    progressCardView.setVisibility(View.GONE);
                     Toast.makeText(SignUp.this, "Password is too short", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(txt_conf)) {
+                    progressCardView.setVisibility(View.GONE);
                     Toast.makeText(SignUp.this, "Password does not match" + password + "confir  " + txt_conf, Toast.LENGTH_SHORT).show();
                 } else if (userName.length() < 6) {
+                    progressCardView.setVisibility(View.GONE);
                     Toast.makeText(SignUp.this, "userName is too short", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -111,9 +120,10 @@ public class SignUp extends AppCompatActivity {
                 firebaseUser.updateProfile(userProfileChangeRequest);
 
                 startActivity(new Intent(SignUp.this,MapsActivity.class));
-
+                progressCardView.setVisibility(View.GONE);
 
             } else {
+                progressCardView.setVisibility(View.GONE);
                 // If sign in fails, display a message to the user.
                 if(Objects.requireNonNull(task.getException()).toString().contains("The email address is badly formatted")){
                     Toast.makeText(SignUp.this, "Authentication failed,\nCheck your email address and try again",
