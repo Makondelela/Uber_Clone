@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.location.Address;
@@ -31,6 +32,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
     AutoCompleteTextView editPickUp;
     AutoCompleteTextView editDestination;
     TextView userName;
+    private CardView progressCardView;
     String validateLocation = "New York";
 
     @Override
@@ -42,7 +44,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         editPickUp = findViewById(R.id.editPickUp);
         editDestination = findViewById(R.id.editDestination);
         userName = findViewById(R.id.username);
-
+        progressCardView = findViewById(R.id.cardV2);
         //get location from previous page from textView to editPickUp
         String currentLocation = getIntent().getStringExtra("keyLocation");
         editPickUp.setText(currentLocation);
@@ -103,11 +105,13 @@ public class ChooseLocationActivity extends AppCompatActivity {
     }
 
     public void handleLocationSelection (String pickUpLocation, String destinationLocation){
+        progressCardView.setVisibility(View.VISIBLE);
         if (pickUpLocation.equals("")) {
             Toast.makeText(ChooseLocationActivity.this, "Starting location is empty", Toast.LENGTH_SHORT).show();
         }else if (destinationLocation.equals("") ||destinationLocation.equals("Your Destination")) {
             Toast.makeText(ChooseLocationActivity.this, "Destination location is empty", Toast.LENGTH_SHORT).show();
         } else if (!pickUpLocation.equals("") && !destinationLocation.equals("")) {
+
             LatLng latLng = getLatLngFromAddress(pickUpLocation);
             String validP = latLng.toString();
 
@@ -115,6 +119,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
             String validD = latLng1.toString();
 
             if (!latLng.equals(getLatLngFromAddress(validateLocation)) && !latLng1.equals(getLatLngFromAddress(validateLocation))) {
+
                 DRequests.addString(0, pickUpLocation);
                 DRequests.addString(1, destinationLocation);
                 DRequests.addString(2, validP);
@@ -123,6 +128,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
                 intent.putExtra("pLocation", pickUpLocation);
                 intent.putExtra("dLocation", destinationLocation);
                 startActivity(intent);
+
             } else if (latLng.equals(getLatLngFromAddress(validateLocation)) && latLng1.equals(getLatLngFromAddress(validateLocation))) {
                 Toast.makeText(ChooseLocationActivity.this, "Starting and destination location don't exist", Toast.LENGTH_SHORT).show();
             } else if (latLng1.equals(getLatLngFromAddress(validateLocation)) && !latLng.equals(getLatLngFromAddress(validateLocation))) {
