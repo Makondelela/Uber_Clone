@@ -26,7 +26,7 @@ public class SignIn extends AppCompatActivity {
     private EditText edtPass;
     private TextView logError;
     private CardView cardView;
-
+    private CardView progressCardView;
     private long pressedTime;
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
@@ -42,6 +42,7 @@ public class SignIn extends AppCompatActivity {
         logError = findViewById(R.id.logError);
         ImageView remove = findViewById(R.id.moses);
         TextView createAccount = findViewById(R.id.textCreateNewAccount);
+        progressCardView = findViewById(R.id.cardV2);
 
 
         cardView.setVisibility(View.INVISIBLE);
@@ -62,12 +63,13 @@ public class SignIn extends AppCompatActivity {
 
 
         login.setOnClickListener(view -> {
-
+            progressCardView.setVisibility(View.VISIBLE);
             String txt_email = edtEmail.getText().toString().trim();
             String txt_pass = edtPass.getText().toString().trim();
             if(TextUtils.isEmpty(txt_email)||TextUtils.isEmpty(txt_pass)){
                 cardView.setVisibility(View.VISIBLE);
                 logError.setText("Empty credentials");
+                progressCardView.setVisibility(View.GONE);
             }else{
                 loginUser(txt_email, txt_pass);
             }
@@ -81,39 +83,48 @@ public class SignIn extends AppCompatActivity {
         auth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+
                         FirebaseUser mCurrentUser = auth.getCurrentUser();
                         // Sign in success, update UI with the signed-in user's information
                         Toast.makeText( SignIn.this, "Login successful", Toast.LENGTH_SHORT).show();
                         String userEmail = edtEmail.getText().toString();
                         Intent intent = new Intent(new Intent(SignIn.this,MapsActivity.class));
                         startActivity(intent);
+                        progressCardView.setVisibility(View.GONE);
 
                     } else if(Objects.requireNonNull(task.getException()).toString().contains("There is no user record")){
                         // If sign in fails, display a message to the user.
                         cardView.setVisibility(View.VISIBLE);
+                        progressCardView.setVisibility(View.GONE);
                         logError.setText("Email invalid, check your email and try again or Sign Up");
 
 
                     }else if(task.getException().toString().contains("The password is invalid")){
                         cardView.setVisibility(View.VISIBLE);
+                        progressCardView.setVisibility(View.GONE);
                         logError.setText("You have entered a wrong password ");
 
                     }else if(task.getException().toString().contains("due to many failed login attempts")){
                         cardView.setVisibility(View.VISIBLE);
+                        progressCardView.setVisibility(View.GONE);
                         logError.setText("You are Temporarily blocked due to too many login attempts try again after a few minutes");
 
                     }else if(task.getException().toString().contains("The email address is badly formatted")){
                         cardView.setVisibility(View.VISIBLE);
+                        progressCardView.setVisibility(View.GONE);
                         logError.setText("Please enter a valid email address");
 
                     }else if(task.getException().toString().contains("A network error")){
                         cardView.setVisibility(View.VISIBLE);
+                        progressCardView.setVisibility(View.GONE);
                         logError.setText("Network error, Check your internet connection and try again");
                     }else if(task.getException().toString().contains("Failed to connect to")){
                         cardView.setVisibility(View.VISIBLE);
+                        progressCardView.setVisibility(View.GONE);
                         logError.setText("Failed to fetch details, check your internet connection and try again");
                     }else{
                         cardView.setVisibility(View.VISIBLE);
+                        progressCardView.setVisibility(View.GONE);
                         logError.setText("" +task.getException());
                     }
                 });
